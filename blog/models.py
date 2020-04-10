@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -50,8 +51,8 @@ class Post(models.Model):
     # 存储比较短的字符串可以使用 CharField，但对于文章的正文来说可能会是一大段文本，因此使用 TextField 来存储大段文本。
     body = models.TextField(verbose_name='正文')
     # 这两个列分别表示文章的创建时间和最后一次修改时间，存储时间的字段用 DateTimeField 类型。
-    created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    modified_time = models.DateTimeField(auto_now=True, verbose_name='修改时间')
+    created_time = models.DateTimeField(default=timezone.now, verbose_name='创建时间')
+    modified_time = models.DateTimeField(verbose_name='修改时间')
     # 文章摘要，可以没有文章摘要，但默认情况下 CharField 要求我们必须存入数据，否则就会报错。
     # 指定 CharField 的 blank=True 参数值后就可以允许空值了。
     excerpt = models.CharField(max_length=100, blank=True, verbose_name='文章摘要')
@@ -77,6 +78,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.modified_time = timezone.now()
+        super(Post, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('blog:detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name_plural = '发布管理'
