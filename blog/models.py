@@ -1,11 +1,12 @@
+import markdown
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 
-
 # Create your models here.
+from django.utils.html import strip_tags
 
 
 class Category(models.Model):
@@ -45,7 +46,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     """
-     文章的数据库表稍微复杂一点，主要是涉及的字段更多。
+    文章的数据库表稍微复杂一点，主要是涉及的字段更多。
     """
     # 文章标题
     title = models.CharField(max_length=70, verbose_name='标题')
@@ -84,6 +85,11 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         self.modified_time = timezone.now()
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+        ])
+        self.excerpt = strip_tags(md.convert(self.body))[:54]
         super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
