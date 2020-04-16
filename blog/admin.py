@@ -7,6 +7,8 @@ from blog.models import Post, Category, Tag
 class PostAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'created_time', 'modified_time', 'category', 'author']
     fields = ['title', 'body', 'excerpt', 'category', 'tags']
+    list_display_links = ['title']
+    search_fields = ['title']
 
     """
     下面的方法接收四个参数，其中前两个，一个是 request，即此次的 HTTP 请求对象，第二个是 obj，
@@ -18,10 +20,22 @@ class PostAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+    list_display_links = ['name']
+    search_fields = ['name']
+
+
+class TatAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+    list_display_links = ['name']
+    search_fields = ['name']
+
+
 # 注册数据表后，后台可以添加
 admin.site.register(Post, PostAdmin)
-admin.site.register(Category)
-admin.site.register(Tag)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TatAdmin)
 
 # 修改头部信息和标题信
 admin.site.site_header = '博客后台管理'

@@ -11,7 +11,7 @@ from markdown.extensions.toc import TocExtension
 
 # 首页
 def index(request):
-    post_list = Post.objects.all().order_by('-created_time')
+    post_list = Post.objects.all()
     return render(request, 'blog/index.html', locals())
 
 

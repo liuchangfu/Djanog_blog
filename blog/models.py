@@ -98,3 +98,4 @@ class Post(models.Model):
     class Meta:
         verbose_name_plural = '发布管理'
         verbose_name = '发布管理'
+        ordering = ['-created_time']
