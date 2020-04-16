@@ -25,6 +25,8 @@ def detail(request, pk):
             TocExtension(slugify=slugify),
         ])
     post.body = md.convert(post.body)
+    # 阅读量 +1
+    post.increase_views()
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     post.toc = m.group(1) if m is not None else ''
     # post.body = markdown.markdown(post.body,
