@@ -10,6 +10,7 @@ django = "*"
 markdown = "*"
 django-ckeditor = "*"
 faker = "*"
+loguru = "*"
 
 [requires]
 python_version = "3.8"
