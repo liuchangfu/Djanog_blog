@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 markdown = "*"
 django-ckeditor = "*"
+faker = "*"
 
 [requires]
 python_version = "3.8"
