@@ -9,6 +9,7 @@ import faker
 from django.utils import timezone
 from loguru import logger
 
+
 back = os.path.dirname
 BASE_DIR = back(back(os.path.abspath(__file__)))
 logger.info(f'{BASE_DIR}')
@@ -31,7 +32,7 @@ logger.info(dir)
 #
 
 if __name__ == '__main__':
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djanog_blog.settings.local")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Djanog_blog.settings")
     django.setup()
     from blog.models import Category, Post, Tag
     from comments.models import Comment
