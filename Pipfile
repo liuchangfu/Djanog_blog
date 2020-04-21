@@ -11,6 +11,7 @@ markdown = "*"
 django-ckeditor = "*"
 faker = "*"
 loguru = "*"
+django-pure-pagination = "*"
 
 [requires]
 python_version = "3.8"

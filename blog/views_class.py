@@ -5,14 +5,16 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
-
+from pure_pagination.mixins import PaginationMixin
 from blog.models import Post, Category, Tag
 
 
-class IndexView(ListView):
+class IndexView(PaginationMixin, ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
+    # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
+    paginate_by = 5
 
 
 class CategoryView(ListView):
