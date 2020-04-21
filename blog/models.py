@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from ckeditor.fields import RichTextField
+from django.utils.html import strip_tags
+
 
 # Create your models here.
-from django.utils.html import strip_tags
 
 
 class Category(models.Model):
