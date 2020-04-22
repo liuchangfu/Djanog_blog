@@ -16,5 +16,6 @@ urlpatterns = [
     path('archives/<int:year>/<int:month>/', views_class.ArchiveView.as_view(), name='archive'),
     path('categories/<int:pk>/', views_class.CategoryView.as_view(), name='category'),
     path('tags/<int:pk>/', views_class.TagView.as_view(), name='tag'),
+    path('search/', views.search, name='search')
 
 ]
